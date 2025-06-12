@@ -1,0 +1,5 @@
+yfinance # 0.2.63
+pandas # 2.3.0
+mplfinance # 0.12.10b0
+# ta-lib
+pandas-ta # 0.3.14b0
