@@ -5,7 +5,7 @@ import os
 
 url = "https://tw.stock.yahoo.com/tw-etf"
 h = {
-    "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+    "User-Agent":""
 }
 resp = requests.get(url, headers=h)
 html = bs.BeautifulSoup(resp.text)
