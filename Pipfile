@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "==2.3.3"
+joycehsu65 = {editable = true, path = "."}
+crawler = {editable = true, path = "."}
+setuptools = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
