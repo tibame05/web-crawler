@@ -3,6 +3,9 @@ import numpy as np
 import pandas_ta as ta
 import os
 
+from crawler.worker import app
+
+@app.task()
 def calculate_indicators(df):
     # RSI (相對強弱指標)
     df['RSI'] = ta.rsi(df['Close'], length=14)
@@ -24,6 +27,7 @@ def calculate_indicators(df):
 
     return df
 
+@app.task()
 def evaluate_performance(df):
     df['Return'] = df['Adj_Close'].pct_change()
     df['Cumulative'] = (1 + df['Return']).cumprod()
@@ -45,31 +49,3 @@ def evaluate_performance(df):
         "Sharpe Ratio": sharpe
     }
 
-if __name__ == "__main__":
-    input_dir = "crawler/output/output_historical_price_data"
-    output_dir = "crawler/output/output_with_indicators"
-    performance_dir = "crawler/output/output_backtesting_metrics"
-    os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(performance_dir, exist_ok=True)
-
-    summary_path = os.path.join(performance_dir, "backtesting_performance_summary.csv")
-    summary_list = []
-
-    for file in os.listdir(input_dir):
-        if file.endswith(".csv"):
-            ticker = file.replace(".csv", "")
-            df = pd.read_csv(os.path.join(input_dir, file), index_col=0, parse_dates=True)
-
-            if "Adj Close" in df.columns:
-                df.rename(columns={"Adj Close": "Adj_Close"}, inplace=True)
-
-            df = calculate_indicators(df)
-            performance = evaluate_performance(df)
-            performance["Ticker"] = ticker
-            summary_list.append(performance)
-
-            df.to_csv(os.path.join(output_dir, f"{ticker}_with_indicators.csv"))
-
-    summary_df = pd.DataFrame(summary_list)
-    summary_df = summary_df[["Ticker", "Total Return", "CAGR", "Max Drawdown", "Sharpe Ratio"]]
-    summary_df.to_csv(summary_path, index=False)

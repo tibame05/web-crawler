@@ -10,8 +10,8 @@ setuptools = "*"
 pandas = "*"
 yfinance = "==0.2.36"
 mplfinance = "==0.12.9b7"
-ta-lib = "==0.6.4"
-numpy = "*"
+pandas_ta = "*"
+celery = "*"
 
 [dev-packages]
 
