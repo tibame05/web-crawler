@@ -1,58 +1,32 @@
 # 使用 Ubuntu 20.04 作為基礎映像檔
 FROM ubuntu:20.04
 
-# 避免 tzdata 等互動式安裝問題
-ARG DEBIAN_FRONTEND=noninteractive
-
-# 更新套件並安裝必要工具（含 TA-Lib 所需）
+# 更新套件列表，並安裝 Python 3.8 以及 pip（Python 套件管理工具）
 RUN apt-get update && \
-    apt-get install -y \
-        python3.8 \
-        python3-pip \
-        python3.8-dev \
-        build-essential \
-        wget \
-        git \
-        curl \
-        unzip \
-        libffi-dev \
-        libssl-dev \
-        make \
-        gcc \
-        g++ \
-        zlib1g-dev \
-        # 為 TA-Lib 安裝基礎編譯工具
-        libtool \
-        automake \
-        autoconf
+    apt-get install python3.8 -y && \
+    apt-get install python3-pip -y
 
-# 安裝 TA-Lib 的 C library
-RUN cd /tmp && \
-    curl -LO http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz && \
-    tar -xvzf ta-lib-0.4.0-src.tar.gz && \
-    cd ta-lib && \
-    ./configure --prefix=/usr && \
-    make && \
-    make install && \
-    cd / && rm -rf /tmp/ta-lib*
+# 安裝特定版本的 pipenv（用於 Python 虛擬環境和依賴管理）
+RUN pip install pipenv==2022.4.8
 
-# 安裝 pipenv
-RUN pip3 install pipenv==2022.4.8
-
-# 建立工作目錄
+# 建立工作目錄 /crawler
 RUN mkdir /crawler
+
+# 將當前目錄（與 Dockerfile 同層）所有內容複製到容器的 /crawler 資料夾
 COPY . /crawler/
+
+# 設定容器的工作目錄為 /crawler，後續的指令都在這個目錄下執行
 WORKDIR /crawler/
 
-# 安裝 pipenv 套件
+# 根據 Pipfile.lock 安裝所有依賴（確保環境一致性）
 RUN pipenv sync
 
-# 設定語系避免 Python 編碼錯誤
+# 設定語系環境變數，避免 Python 編碼問題
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-# 建立 .env（你的 genenv.py 應該會建立 .env 檔）
+# 建立 .env
 RUN ENV=DOCKER python3 genenv.py
 
-# 預設啟動 bash 終端
+# 啟動容器後，預設執行 bash（開啟終端）
 CMD ["/bin/bash"]
