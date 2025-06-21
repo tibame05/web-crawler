@@ -8,6 +8,11 @@ flask = "==2.3.3"
 joycehsu65 = {editable = true, path = "."}
 crawler = {editable = true, path = "."}
 setuptools = "*"
+pandas = "*"
+yfinance = "==0.2.36"
+mplfinance = "==0.12.9b7"
+ta-lib = "==0.6.4"
+
 
 [dev-packages]
 
