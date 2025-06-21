@@ -28,4 +28,4 @@ for html in headers:
 
 import pandas as pd
 df = pd.DataFrame(etf_list)
-df.to_csv("output/etf_list.csv", sep="\t", encoding="utf-8")
+df.to_csv("crawler/output/output_etf_number/etf_list.csv", sep="\t", encoding="utf-8")

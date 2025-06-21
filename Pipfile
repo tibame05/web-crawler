@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 flask = "==2.3.3"
-joycehsu65 = {editable = true, path = "."}
 crawler = {editable = true, path = "."}
 setuptools = "*"
 pandas = "*"

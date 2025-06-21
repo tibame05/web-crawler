@@ -52,9 +52,9 @@ def evaluate_performance(df):
 
 
 if __name__ == "__main__":
-    input_dir = "output_historical_price_data"
-    output_dir = "output_with_indicators"
-    performance_dir = "output_backtesting_metrics"
+    input_dir = "crawler/output/output_historical_price_data"
+    output_dir = "crawler/output/output_with_indicators"
+    performance_dir = "crawler/output/output_backtesting_metrics"
     os.makedirs(output_dir, exist_ok=True) # 如果資料夾不存在就建立它
     os.makedirs(performance_dir, exist_ok=True)
 

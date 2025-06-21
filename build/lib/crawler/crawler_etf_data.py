@@ -5,13 +5,13 @@ import yfinance as yf
 import os
 
 # 建立歷史價格資料夾與配息子資料夾
-historical_dir = "output_historical price data"
+historical_dir = "crawler/output/output_historical price data"
 os.makedirs(historical_dir, exist_ok=True)
-dividend_dir = "output_dividends"
+dividend_dir = "crawler/output/output_dividends"
 os.makedirs(dividend_dir, exist_ok=True)
 
 # 讀取上傳的 ETF CSV（預期包含 '序號' 欄位為 ticker）
-etf_df = pd.read_csv("output/etf_list.csv", encoding="utf-8-sig", sep="\t")
+etf_df = pd.read_csv("crawler/output/output_etf_number/etf_list.csv", encoding="utf-8-sig", sep="\t")
 etf_df.columns = etf_df.columns.str.strip()
 ticker_list = etf_df["序號"].dropna().tolist()
 
