@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1d482da31eda58b82f15d3e468d7655fe442e9b812ea21417f06a2767889d5bf"
+            "sha256": "479bd211bb235966dd5194a8b3b6add8d3248065094f7261e241ce89e10f976a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -379,10 +379,6 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==3.1.6"
-        },
-        "joycehsu65": {
-            "editable": true,
-            "path": "."
         },
         "kiwisolver": {
             "hashes": [
@@ -807,7 +803,7 @@
                 "sha256:f136bab9c2cfd8da131132c2cf6cc27331dd6fae65f95f69dcd4ae3c3639c810",
                 "sha256:f3a86ed21e4f87050382c7bc96571755193c4c1392490744ac73d660e8f564a9"
             ],
-            "markers": "python_version >= '3.8'",
+            "index": "pypi",
             "version": "==1.24.4"
         },
         "packaging": {
