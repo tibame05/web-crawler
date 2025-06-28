@@ -109,7 +109,7 @@ docker compose -f rabbitmq-network.yml up -d
 ```bash
 pipenv install celery==5.5.0
 pipenv run python crawler/producer_main.py
-pipenv run celery -A web-crawler.worker worker --loglevel=info
+pipenv run celery -A crawler.worker worker --loglevel=info
 
 ```
 
