@@ -7,11 +7,11 @@ from crawler.tasks_crawler_etf import crawler_etf_data             # ✅ 匯入�
 
 if __name__ == "__main__":
     # 0️⃣ 先爬 ETF 清單（名稱與代號），並儲存成 etf_list.csv
-    scrape_etf_list()
+    scrape_etf_list.apply_async()
 
     # 1️⃣ 根據 ETF 清單下載歷史價格與配息資料
     csv_path = "output/output_etf_number/etf_list.csv"
-    crawler_etf_data(csv_path)
+    crawler_etf_data.apply_async(args=[csv_path])
 
 
 '''
@@ -35,10 +35,10 @@ if __name__ == "__main__":
                 df.rename(columns={"Adj Close": "Adj_Close"}, inplace=True)
 
             # 計算技術指標（RSI, MA, MACD, KD）
-            df = calculate_indicators(df)
+            df = calculate_indicators.apply_sync(args=[df])
 
             # 計算績效指標（總報酬、CAGR、最大回撤、Sharpe Ratio）
-            performance = evaluate_performance(df)
+            performance = evaluate_performance.apply_sync(args=[df])
             performance["Ticker"] = ticker
             summary_list.append(performance)
 
