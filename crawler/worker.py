@@ -11,9 +11,10 @@ app = Celery(
     "task",
     # 只包含 tasks.py 裡面的程式, 才會成功執行
     include=[
-        "tasks_etf_list.py",
-        "crawler_etf.py", 
-        #"backtest_utils.py"
+        "crawler.tasks_etf_list.py",
+        "crawler.tasks_crawler_etf.py", 
+        #"crawler.tasks_backtest_utils.py",
+        #"crawler.tasks_backtest_workflow.py"
     ],
     # 連線到 rabbitmq,
     # pyamqp://user:password@127.0.0.1:5672/
