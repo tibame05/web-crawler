@@ -11,7 +11,9 @@ pandas = "*"
 yfinance = "==0.2.36"
 mplfinance = "==0.12.9b7"
 pandas_ta = "*"
-celery = "*"
+celery = "==5.5.0"
+apscheduler = "==3.10.4"
+loguru = "==0.6.0"
 
 [dev-packages]
 

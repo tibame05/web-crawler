@@ -5,8 +5,18 @@ import os
 
 from crawler.worker import app
 
+# 🎯 任務 1：計算各項技術指標（RSI, MA, MACD, KD）
 @app.task()
 def calculate_indicators(df):
+    """
+    對傳入的股價資料 DataFrame 計算技術分析指標，並回傳含技術指標的 DataFrame。
+    指標包含：
+    - RSI（14日）
+    - 移動平均線（MA5, MA20）
+    - MACD（快線、慢線、柱狀圖）
+    - KD 隨機指標（%K, %D）
+    """
+
     # RSI (相對強弱指標)
     df['RSI'] = ta.rsi(df['Close'], length=14)
 
@@ -27,19 +37,32 @@ def calculate_indicators(df):
 
     return df
 
+# 🎯 任務 2：計算策略績效評估指標
 @app.task()
 def evaluate_performance(df):
+    """
+    根據含 Adj_Close 的股價資料，計算回測績效指標並以 dict 回傳：
+    - 總報酬率（Total Return）
+    - 年化報酬率（CAGR）
+    - 最大回撤（Max Drawdown）
+    - 夏普比率（Sharpe Ratio）
+    """
+
+    # 總報酬率（Total Return）
     df['Return'] = df['Adj_Close'].pct_change()
     df['Cumulative'] = (1 + df['Return']).cumprod()
     total_return = df['Cumulative'].iloc[-1] - 1
 
+    # 年化報酬率（CAGR）
     days = (df.index[-1] - df.index[0]).days
     cagr = (df['Cumulative'].iloc[-1]) ** (365 / days) - 1 if days > 0 else np.nan
 
+    # 最大回撤（Max Drawdown）
     roll_max = df['Cumulative'].cummax()
     drawdown = df['Cumulative'] / roll_max - 1
     max_drawdown = drawdown.min()
 
+    # 夏普比率（Sharpe Ratio）
     sharpe = np.sqrt(252) * df['Return'].mean() / df['Return'].std() if df['Return'].std() != 0 else np.nan
 
     return {
