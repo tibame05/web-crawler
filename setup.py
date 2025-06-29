@@ -1,24 +1,20 @@
 import os
-from io import open
-
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
-
 setup(
-    name="crawler",  # Required
-    version="0.0.1",  # Required
-    description="test",  # Optional
-    long_description=long_description,  # Optional
-    long_description_content_type="text/markdown",  # Optional (see note above)
-    author="joycehsu",  # Optional
-    author_email="egroup.joyce@gmail.com",  # Optional
-    classifiers=[  # Optional
+    name="etf-lab",
+    version="0.0.1",
+    description="ETF lab crawler and database",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    author="joycehsu, winstonlu",
+    author_email="egroup.joyce@gmail.com, apollo07291@gmail.com",
+    classifiers=[
         "Development Status :: 3 - Alpha",
     ],
-    # packages=find_packages(where="src"),
-    # package_dir={"": "src"},
+    packages=["crawler", "database"],
 )
