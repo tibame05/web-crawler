@@ -6,7 +6,7 @@ import yfinance as yf
 from crawler.worker import app
 
 @app.task()
-def crawler_etf_data(stock_list_path: str  = "crawler/output/output_etf_number/etf_list.csv"):
+def crawler_etf_data(stock_list_path: str  = "output/output_etf_number/etf_list.csv"):
     """
     從 ETF 清單中逐一抓取各 ETF 的歷史價格與配息資料，並儲存為 CSV。
     
