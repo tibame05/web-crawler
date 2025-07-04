@@ -98,18 +98,17 @@ ETF 編號 → yfinance 擷取資料 → 技術指標計算 → 策略模擬與�
 
 ## 🚀 快速開始：下載專案與設定環境
 
-### 1️⃣ 下載專案
+### 📥 下載專案
 
 ```bash
 git clone https://github.com/tibame05/web-crawler.git
 cd web-crawler
 ```
 
-### 2️⃣ 設定 Python 環境（使用 Pyenv + Pipenv）
+### 🧰 設定 Python 環境（使用 Pyenv + Pipenv）
 
-本專案採用 Pyenv 管理 Python 版本，並使用 Pipenv 管理虛擬環境與依賴套件。
 
-#### 🔧 安裝指定 Python 版本
+#### 🔧 安裝指定 Python 版本（使用 Pyenv）
 
 使用 `pyenv` 安裝對應的 Python 版本（例如 3.8.10）
 
@@ -126,25 +125,26 @@ pyenv local 3.8.10
 pipenv --python ~/.pyenv/versions/3.8.10/bin/python
 ```
 
-安裝 `Pipfile` 中定義的所有套件：
+建立後安裝 `Pipfile` 中的依賴套件：
 
 ```bash
 pipenv install
 ```
+#### 🧩 手動安裝套件（如需）
 
-也可以手動新增特定套件，例如安裝 yfinance：
+例如安裝 yfinance：
 
 ```bash
 pipenv install yfinance==0.2.63
 ```
 
-啟動 Python 互動模式：
+#### 🐚 啟動 Python 互動模式測試環境
 
 ```bash
 pipenv run python
 ```
 
-#### 🖥️ 補充：VS Code 設定 Pipenv 虛擬環境
+### 🖥️ VS Code 整合 Pipenv 虛擬環境
 
 若 VS Code 無法自動辨識 `pipenv` 的虛擬環境，可手動設定：
 
@@ -165,17 +165,17 @@ pipenv run python
     - 搜尋 `Python: Select Interpreter`
     - 貼上剛剛的路徑（完整路徑至 `/bin/python`）
 
-#### 🥚 Pipenv 開發模式（已建立）
+### 🥚 Pipenv 開發模式（已建立）
 
-若是開發本地套件（例如建立 `setup.py` 的 Python 專案），可以使用：
+若要即時修改專案程式碼並測試：
 
 ```bash
 pipenv install -e .
 ```
 
-這會出現 `.egg-info`，代表已進入「開發模式」，可即時修改原始碼生效。
+成功後會產生 `.egg-info` 檔案，表示已進入開發模式。
 
-#### 🔁 套件同步（團隊協作）
+### 🔁 套件同步（團隊協作）
 
 當你從 Git 拉到專案後，可以使用以下指令同步 `Pipfile.lock` 中所有定義的套件：
 
@@ -265,16 +265,7 @@ docker logs web-crawler-rabbitmq-1
 > 📝 若 container 名稱不同，可用 `docker ps` 確認正確名稱。
 
 
-### 📦 5. 安裝 Celery
-
-請先安裝指定版本的 Celery（建議版本：5.5.0）：
-
-```bash
-pipenv install celery==5.5.0
-```
-
-
-### 🚀 6. 發送任務（Producer）
+### 🚀 5. 發送任務（Producer）
 
 執行 `producer_main.py`，將任務加入 RabbitMQ 佇列：
 
@@ -285,7 +276,7 @@ pipenv run python crawler/producer_main.py
 > 任務將預設加入名為 `celery` 的佇列。
 
 
-### 🛠️ 7. 啟動工人（Worker）
+### 🛠️ 6. 啟動工人（Worker）
 
 啟動 Celery 工人來執行佇列任務：
 
@@ -297,13 +288,13 @@ pipenv run celery -A crawler.worker worker --loglevel=info
 * `--loglevel=info`：顯示詳細任務處理紀錄
 
 
-### 🖥️ 8. Flower：監控任務狀態（Web UI）
+### 🖥️ 7. Flower：監控任務狀態（Web UI）
 
 Flower 提供 Celery 任務的監控介面，可透過瀏覽器查看：
 [http://127.0.0.1:5555](http://127.0.0.1:5555)
 
 
-### 👷‍♀️ 9. 啟動多個工人（多進程任務處理）
+### 👷‍♀️ 8. 啟動多個工人（多進程任務處理）
 
 你可以同時啟動多個工人，提高任務處理效率：
 
@@ -315,12 +306,12 @@ pipenv run celery -A crawler.worker worker -n worker2 --loglevel=info
 * `-n worker1`：指定工人名稱，便於管理
 
 
-### 🛑 10. 關閉工人（Worker）
+### 🛑 9. 關閉工人（Worker）
 
 在 terminal 中啟動的工人，可透過 `Ctrl + C` 中斷停止。
 
 
-### ❌ 11. 關閉 RabbitMQ
+### ❌ 10. 關閉 RabbitMQ
 
 ```bash
 docker compose -f rabbitmq-network.yml down
