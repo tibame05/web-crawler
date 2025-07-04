@@ -13,8 +13,8 @@ app = Celery(
     include=[
         "crawler.tasks_etf_list",
         "crawler.tasks_crawler_etf", 
-        #"crawler.tasks_backtest_utils",
-        #"crawler.tasks_backtest_workflow"
+        "crawler.tasks_preprocess_price",
+        "crawler.tasks_backtest_utils"
     ],
     # 連線到 rabbitmq,
     # pyamqp://user:password@127.0.0.1:5672/

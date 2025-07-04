@@ -6,7 +6,7 @@ import os
 from crawler.worker import app
 
 @app.task()
-def scrape_etf_list(output_path="output/output_etf_number/etf_list.csv"):
+def scrape_etf_list(output_path="crawler/output/output_etf_number/etf_list.csv"):
     """
     從 Yahoo 財經抓取台灣 ETF 名稱與代碼，並儲存成 TSV 檔案。
 
