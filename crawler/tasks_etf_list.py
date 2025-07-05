@@ -30,7 +30,7 @@ def scrape_etf_list(output_path="crawler/output/output_etf_number/etf_list.csv")
 
         etf_list.append({
             "etf_id": ETF_number_text,
-            "name": ETF_name_text,
+            "etf_name": ETF_name_text,
             "region": "TW",
             "currency": "TWD",
         })

@@ -54,7 +54,7 @@ def crawler_etf_data(stock_list_path: str  = "crawler/output/output_etf_number/e
         df.columns = df.columns.str.lower()
 
         # 儲存價格資料
-        df.to_csv(f"{historical_dir}/{ticker}.csv")
+        df.to_csv(f"{historical_dir}/{ticker}.csv", index=False)
 
 
         # 2️⃣ 抓取配息資料
