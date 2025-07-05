@@ -29,8 +29,10 @@ def scrape_etf_list(output_path="crawler/output/output_etf_number/etf_list.csv")
         ETF_number_text = ETF_number.text.strip() if ETF_number else "N/A"
 
         etf_list.append({
-            "名稱": ETF_name_text,
-            "序號": ETF_number_text
+            "etf_id": ETF_number_text,
+            "name": ETF_name_text,
+            "region": "TW",
+            "currency": "TWD",
         })
 
     df = pd.DataFrame(etf_list)

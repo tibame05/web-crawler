@@ -13,7 +13,6 @@ app = Celery(
     include=[
         "crawler.tasks_etf_list",
         "crawler.tasks_crawler_etf", 
-        "crawler.tasks_preprocess_price",
         "crawler.tasks_backtest_utils"
     ],
     # 連線到 rabbitmq,
